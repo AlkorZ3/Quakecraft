@@ -16,13 +16,15 @@ public class JoinCommand implements BasicCommand {
     public boolean onCommand(Player player, String[] args) {
         if (Quake.hasPermission(player, getPermission())) {
             Arena arena = null;
-            if (_plugin._am.exist(args[0])) {
-                arena = _plugin._am.getArenabyName(args[0]);
-            } else if (args[0].matches("^\\d*$")) {
-                arena = _plugin._am.getArenabyID(Integer.valueOf(args[0]));
-            }
+	    if ( args.length > 0) {
+		if ( _plugin._am.exist(args[0])) {
+		    arena = _plugin._am.getArenabyName(args[0]);
+		} else if (args[0].matches("^\\d*$")) {
+		    arena = _plugin._am.getArenabyID(Integer.valueOf(args[0]));
+		}
+	    }
             if (arena == null) {
-                player.sendMessage(ChatColor.RED + "Please type a good arena name ! !");
+                player.sendMessage(ChatColor.RED + "Please type a good arena name !");
                 return true;
             }
             if (args.length != 1) {
@@ -30,10 +32,18 @@ public class JoinCommand implements BasicCommand {
                 return true;
             }
             if (arena.isingame(player)) {
-                player.sendMessage(ChatColor.RED + "You are already in game !");
+                player.sendMessage(ChatColor.RED + "You are already in this game !");
                 return true;
             }
+	    else {
+		Arena arena_tmp = _plugin._am.getArenabyPlayer(player);
+		if ( arena_tmp != null ) {
+		    player.sendMessage(ChatColor.RED + "You are already in the " + arena_tmp._name + " arena !");
+		    return true;
+		}
+	    }
             arena.joinArena(player);
+	    
         } else {
             player.sendMessage(_plugin._trad.get("NoPermission"));
         }

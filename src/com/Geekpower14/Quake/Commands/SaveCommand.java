@@ -23,11 +23,13 @@ public class SaveCommand implements BasicCommand {
     public boolean onCommand(Player player, String[] args) {
         if (Quake.hasPermission(player, getPermission())) {
             Arena arena = null;
-            if (_plugin._am.exist(args[0])) {
-                arena = _plugin._am.getArenabyName(args[0]);
-            } else if (args[0].matches("^\\d*$")) {
-                arena = _plugin._am.getArenabyID(Integer.parseInt(args[0]));
-            }
+	    if ( args.length > 0) {
+		if (_plugin._am.exist(args[0])) {
+		    arena = _plugin._am.getArenabyName(args[0]);
+		} else if (args[0].matches("^\\d*$")) {
+		    arena = _plugin._am.getArenabyID(Integer.parseInt(args[0]));
+		}
+	    }
             if (arena == null) {
                 player.sendMessage(ChatColor.RED + "Please type a good arena name ! !");
                 return true;
