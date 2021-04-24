@@ -2,9 +2,11 @@ package com.Geekpower14.Quake.Versions;
 
 
 import com.Geekpower14.Quake.Arena.Arena;
-import net.minecraft.server.v1_14_R1.PacketPlayInClientCommand;
+//import net.minecraft.server.v1_14_R1.PacketPlayInClientCommand;
+import net.minecraft.server.v1_16_R3.PacketPlayInClientCommand;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
+//import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 /*
@@ -17,7 +19,7 @@ import org.bukkit.entity.Player;
  *
  * @author Bl4ckSkull666
  */
-public class R1_14_1 {
+public class R1_16_3 {
     public static void Respawn(Player p) throws Exception {
         PacketPlayInClientCommand ppicc = new PacketPlayInClientCommand(PacketPlayInClientCommand.EnumClientCommand.PERFORM_RESPAWN);
         ((CraftPlayer)p).getHandle().playerConnection.a(ppicc);

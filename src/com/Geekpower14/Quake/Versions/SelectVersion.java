@@ -24,5 +24,10 @@ public class SelectVersion {
                 R1_14_1.Respawn(p);
                 break;
         }
+        switch(getVersion()) {
+            case "v1_16_R3":
+                R1_16_3.Respawn(p);
+                break;
+        }
     }
 }

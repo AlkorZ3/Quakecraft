@@ -1,11 +1,11 @@
 name: Quake
-authors: [Geekpower14, Bl4ckSkull666]
+authors: [Geekpower14, Bl4ckSkull666, AlkorZ3]
 main: com.Geekpower14.Quake.Quake
-version: 3.4.0
-api-version: 1.14
+version: 3.5.0
+api-version: 1.16
 depend: [WorldEdit,Vault]
 softdepend: [Multiverse-Core]
-website: https://www.survival-piraten.de
+website: https://obsidia.rx3.net
 commands:
   quake:
     description: Quake command
