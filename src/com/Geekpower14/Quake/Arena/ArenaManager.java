@@ -1,6 +1,7 @@
 package com.Geekpower14.Quake.Arena;
 
 import com.Geekpower14.Quake.Quake;
+import com.Geekpower14.Quake.Utils.TableGenerator;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.HashMap;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class ArenaManager {
@@ -26,8 +28,12 @@ public class ArenaManager {
         }
         ArrayList<String> Maps = new ArrayList<>();
         for(File f: folder.listFiles()) {
-            String name = f.getName().replaceAll(".yml", "");
-            Maps.add(name);
+	    if(f.getName().endsWith(".yml")) {
+		    String name = f.getName().replaceAll(".yml", "");
+		    Maps.add(name);
+
+		    _plugin.getLogger().info("Loading: [" + f.getName() + "]");
+		}
         }
         if(Maps.isEmpty())
             return;
@@ -50,7 +56,7 @@ public class ArenaManager {
         if (Type2.equalsIgnoreCase("Solo")) {
             arena = new SArena(_plugin, name, _ARENAS.size());
             _ARENAS.put(name, arena);
-        } else if(Type2.equalsIgnoreCase("Team")) {
+	} else if(Type2.equalsIgnoreCase("Team")) {
             arena = new TArena(_plugin, name, _ARENAS.size());
             _ARENAS.put(name, arena);
         }
@@ -168,5 +174,32 @@ public class ArenaManager {
         for(Arena aren : _ARENAS.values()) {
             aren.updateScore();
         }
+    }
+
+    public void listArenas(Player player) {
+	String type, status;
+	
+	if(_ARENAS.size() < 1) {
+	    player.sendMessage("No Arena!");
+	}
+	else {
+	    player.sendMessage(ChatColor.LIGHT_PURPLE +"Arena List:");
+	    TableGenerator tg = new TableGenerator(TableGenerator.Alignment.RIGHT, TableGenerator.Alignment.LEFT, TableGenerator.Alignment.LEFT, TableGenerator.Alignment.RIGHT);
+	    
+	    for(Arena aren : _ARENAS.values()) {
+		if(aren instanceof SArena) {
+		    type="Solo";
+		} else {
+		    type="Team";
+		}
+		
+		tg.addRow( ChatColor.RED + Integer.toString(aren._ID) + ChatColor.WHITE, ChatColor.GREEN + type , aren._name + ChatColor.WHITE, aren.getStatus());
+		
+	    }
+	    
+	    for (String line : tg.generate(TableGenerator.Receiver.CLIENT, true, true)) {
+		player.sendMessage(line);
+	    }		
+	}
     }
 }

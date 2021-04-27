@@ -38,7 +38,7 @@ import org.bukkit.scoreboard.Scoreboard;
 public class Quake
 extends JavaPlugin {
     public static boolean _debug = false;
-    public static String _version = "3.4.0";
+    public static String _version = "3.5.0";
     public static Version _ver = new Version(_version);
     public ArenaManager _am = null;
     public LobbyManager _lobby = null;

@@ -423,5 +423,11 @@ public abstract class Arena {
         return null;
     }
 
+    public String getStatus() {
+        return this._etat <= this._pregame ? (this.getplayers() == this._maxplayer ? ChatColor.DARK_PURPLE + "[FULL]" :
+					      (this._VIP ? ChatColor.AQUA + "[VIP]" :
+					       (this._etat <= this._starting ? ChatColor.GOLD + "[Starting in " + this._etat + "s]" :
+						ChatColor.GREEN + "[Join]"))) : ChatColor.RED + "[In Game]";
+    }
 }
 

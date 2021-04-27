@@ -20,22 +20,23 @@ public class MyCommandExecutor implements CommandExecutor {
     }
 
     private void loadCommands() {
-        _commands.put("leave", new LeaveCommand(_plugin));
-        _commands.put("addspawn", new AddSpawnCommand(_plugin));
-        _commands.put("addlobby", new AddLobbyCommand(_plugin));
         _commands.put("create", new CreateCommand(_plugin));
-        _commands.put("setlobbyspawn", new SetLobbySpawnCommand(_plugin));
-        _commands.put("join", new JoinCommand(_plugin));
-        _commands.put("removelobby", new RemoveLobbyCommand(_plugin));
-        _commands.put("removespawn", new RemoveSpawnCommand(_plugin));
+        _commands.put("remove", new RemoveCommand(_plugin));
         _commands.put("save", new SaveCommand(_plugin));
+        _commands.put("list", new ListCommand(_plugin));
+        _commands.put("addspawn", new AddSpawnCommand(_plugin));
+        _commands.put("removespawn", new RemoveSpawnCommand(_plugin));
         _commands.put("setmap", new SetMapCommand(_plugin));
         _commands.put("setmin", new SetMinCommand(_plugin));
         _commands.put("setmax", new SetMaxCommand(_plugin));
+        _commands.put("addlobby", new AddLobbyCommand(_plugin));
+        _commands.put("setlobbyspawn", new SetLobbySpawnCommand(_plugin));
+        _commands.put("removelobby", new RemoveLobbyCommand(_plugin));
+        _commands.put("join", new JoinCommand(_plugin));
+        _commands.put("leave", new LeaveCommand(_plugin));
         _commands.put("start", new StartCommand(_plugin));
         _commands.put("stop", new StopCommand(_plugin));
         _commands.put("shop", new ShopCommand(_plugin));
-        _commands.put("remove", new RemoveCommand(_plugin));
         _commands.put("kill", new UtilsCommand(_plugin, "kill"));
         _commands.put("add", new UtilsCommand(_plugin, "add"));
         _commands.put("lol", new UtilsCommand(_plugin, "lol"));
@@ -54,8 +55,8 @@ public class MyCommandExecutor implements CommandExecutor {
         player = (Player)sender;
         if(cmd.getName().equalsIgnoreCase("quake")) {
             if(args == null || args.length < 1) {
-                player.sendMessage(ChatColor.YELLOW + "Plugin By Geekpower14");
-                player.sendMessage(ChatColor.YELLOW + "Reloaded by Bl4ckSkull666 ( wwww.Survival-Piraten.de )");
+                player.sendMessage(ChatColor.YELLOW + "Plugin By Geekpower14u / Bl4ckSkull666");
+                player.sendMessage(ChatColor.YELLOW + "Updated bt AlkorZ3 ( Obsidia.Rx3.net )");
                 player.sendMessage(ChatColor.YELLOW + "Version: " + _plugin.getDescription().getVersion());
                 return true;
             }

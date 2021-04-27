@@ -41,7 +41,7 @@ public class SArena extends Arena {
     @Override
     public Boolean loadConfig() {
         File fichier_config = new File(_plugin.getDataFolder(), "/arenas/" + _name + ".yml");
-        YamlConfiguration config = YamlConfiguration.loadConfiguration((File)fichier_config);
+	YamlConfiguration config = YamlConfiguration.loadConfiguration((File)fichier_config);
         if (config.contains("Nombre")) {
             int nombre = config.getInt("Nombre");
             for (int i = 0; i < nombre; i++) {
@@ -278,20 +278,25 @@ public class SArena extends Arena {
 
     @Override
     public void start() {
-        _etat = _ingame;
-        if (_objective != null) {
-            _objective.unregister();
-        }
-        _objective = _board.registerNewObjective(_name, "dummy");
-        _objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-        _objective.setDisplayName("Score");
-        for(APlayer play : _players.values()) {
-            Player player = play.getPlayer();
-            cleaner(player);
-            giveStuff(player);
-            tp(player);
-            updateScore();
-            giveEffect(player);
+	if(  _players.values().size() == 0) {
+	    _plugin.getLogger().info("Don't start empty Arena: Stop it!");
+	    stop();
+	} else {
+	    _etat = _ingame;
+	    if (_objective != null) {
+		_objective.unregister();
+	    }
+	    _objective = _board.registerNewObjective(_name, "dummy");
+	    _objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+	    _objective.setDisplayName("Score");
+	    for(APlayer play : _players.values()) {
+		Player player = play.getPlayer();
+		cleaner(player);
+		giveStuff(player);
+		tp(player);
+		updateScore();
+		giveEffect(player);
+	    }
         }
     }
 
