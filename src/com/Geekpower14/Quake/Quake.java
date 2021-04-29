@@ -2,6 +2,7 @@ package com.Geekpower14.Quake;
 
 import com.Geekpower14.Quake.Arena.ArenaManager;
 import com.Geekpower14.Quake.Commands.MyCommandExecutor;
+import com.Geekpower14.Quake.Commands.MyTabCompleter;
 import com.Geekpower14.Quake.Eco.EcoManager;
 import com.Geekpower14.Quake.Listener.PlayerListener;
 import com.Geekpower14.Quake.Listener.Weather;
@@ -40,6 +41,7 @@ extends JavaPlugin {
     public static boolean _debug = false;
     public static String _version = "3.5.0";
     public static Version _ver = new Version(_version);
+    public MyCommandExecutor _ce = null;
     public ArenaManager _am = null;
     public LobbyManager _lobby = null;
     public int _threadlob = 0;
@@ -91,7 +93,9 @@ extends JavaPlugin {
         _stuff = new StuffManager(this);
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         getServer().getPluginManager().registerEvents(new Weather(this), this);
-        getCommand("Quake").setExecutor(new MyCommandExecutor(this));
+	_ce=new MyCommandExecutor(this);
+        getCommand("Quake").setExecutor(_ce);
+        getCommand("Quake").setTabCompleter(new MyTabCompleter(this));
         _am = new ArenaManager(this);
         _lobby = new LobbyManager(this);
         _threadlob = Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){

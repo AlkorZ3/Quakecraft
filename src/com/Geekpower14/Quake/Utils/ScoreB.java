@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.ChatColor;
 
 public final class ScoreB {
     public Quake _plugin;
@@ -30,12 +31,13 @@ public final class ScoreB {
         _board = Bukkit.getScoreboardManager().getNewScoreboard();
         _objective = _board.registerNewObjective("Score", "dummy");
         _objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-        _objective.setDisplayName(_plugin._trad.get("ScoreBoard.name"));
+        _objective.setDisplayName(ChatColor.YELLOW + _plugin._trad.get("ScoreBoard.name"));
         _objective.getScore(_plugin._trad.get("Shop.Coins.name")).setScore(_Money);
         _objective.getScore(_plugin._trad.get("ScoreBoard.Kills.name")).setScore(_Kills);
         _objective.getScore(_plugin._trad.get("ScoreBoard.Deaths.name")).setScore(_Deaths);
         _objective.getScore(_plugin._trad.get("ScoreBoard.Shots.name")).setScore(_Shots);
         _objective.getScore(_plugin._trad.get("ScoreBoard.Wins.name")).setScore(_Wins);
+
         if (isScoreWorld(_player.getWorld().getName())) {
             _player.setScoreboard(_board);
         } else if (!isScoreWorld(_player.getWorld().getName())) {
@@ -57,6 +59,7 @@ public final class ScoreB {
         _objective.getScore(_plugin._trad.get("ScoreBoard.Deaths.name")).setScore(_Deaths);
         _objective.getScore(_plugin._trad.get("ScoreBoard.Shots.name")).setScore(_Shots);
         _objective.getScore(_plugin._trad.get("ScoreBoard.Wins.name")).setScore(_Wins);
+	
         if (isScoreWorld(_player.getWorld().getName())) {
             _player.setScoreboard(_board);
         } else {

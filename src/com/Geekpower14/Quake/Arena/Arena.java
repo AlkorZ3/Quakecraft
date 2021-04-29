@@ -423,11 +423,22 @@ public abstract class Arena {
         return null;
     }
 
-    public String getStatus() {
-        return this._etat <= this._pregame ? (this.getplayers() == this._maxplayer ? ChatColor.DARK_PURPLE + "[FULL]" :
-					      (this._VIP ? ChatColor.AQUA + "[VIP]" :
-					       (this._etat <= this._starting ? ChatColor.GOLD + "[Starting in " + this._etat + "s]" :
-						ChatColor.GREEN + "[Join]"))) : ChatColor.RED + "[In Game]";
+    public String getStatus(Boolean bracket) {
+	String osb, csb;
+	
+	if( bracket)
+	    {
+		osb="[";
+		csb="]";
+	    } else {
+		osb="";
+		csb="";
+	}
+	
+        return this._etat <= this._pregame ? (this.getplayers() == this._maxplayer ? ChatColor.DARK_PURPLE + osb + "FULL" + csb :
+					      (this._VIP ? ChatColor.AQUA + osb + "VIP" + csb :
+					       (this._etat <= this._starting ? ChatColor.GOLD + osb + "Starting in " + this._etat + "s" + csb :
+						ChatColor.GREEN + osb + "Join" + csb))) : ChatColor.RED + osb + "In Game" + csb;
     }
 }
 

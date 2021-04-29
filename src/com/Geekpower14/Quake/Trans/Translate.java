@@ -38,7 +38,7 @@ public class Translate {
             setDefaultConfig("ScoreBoard.Deaths.name", "Deaths");
             setDefaultConfig("ScoreBoard.Shots.name", "Shots");
             setDefaultConfig("ScoreBoard.Wins.name", "Wins");
-            setDefaultConfig("ScoreBoard.name", "Scores");
+            setDefaultConfig("ScoreBoard.name", "Quake Scores");
             setDefaultConfig("Shop.price", "&r&o&6Price: [PRICE]");
             setDefaultConfig("Shop.needToBuy", "&r&o&6Need: [NEED]");
             setDefaultConfig("Shop.navigation.previousPage", "&aBack");

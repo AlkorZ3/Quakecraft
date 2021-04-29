@@ -235,7 +235,7 @@ public class LobbyManager {
 	    /*
 	      String ligne0 = arena._etat <= arena._pregame ? (arena.getplayers() == arena._maxplayer ? ChatColor.DARK_PURPLE + "[FULL]" : (arena._VIP ? ChatColor.AQUA + "[VIP]" : (arena._etat <= arena._starting ? ChatColor.GOLD + "[Starting]" : ChatColor.GREEN + "[Join]"))) : ChatColor.RED + "[InGame]";
 	    */
-            String ligne0 = arena.getStatus();
+            String ligne0 = arena.getStatus(true);
             String tmp = "";
             if (arena instanceof SArena) {
                 tmp = "S-";

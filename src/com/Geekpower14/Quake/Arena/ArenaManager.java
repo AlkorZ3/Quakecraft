@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeMap;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -184,16 +185,26 @@ public class ArenaManager {
 	}
 	else {
 	    player.sendMessage(ChatColor.LIGHT_PURPLE +"Arena List:");
-	    TableGenerator tg = new TableGenerator(TableGenerator.Alignment.RIGHT, TableGenerator.Alignment.LEFT, TableGenerator.Alignment.LEFT, TableGenerator.Alignment.RIGHT);
-	    
+	    player.sendMessage("");
+
+	    TreeMap<Integer, Arena> _ARENAS_sorted = new TreeMap();
 	    for(Arena aren : _ARENAS.values()) {
+		_ARENAS_sorted.put( aren._ID, aren);
+	    }
+
+	    TableGenerator tg = new TableGenerator(TableGenerator.Alignment.RIGHT, TableGenerator.Alignment.LEFT, TableGenerator.Alignment.LEFT, TableGenerator.Alignment.CENTER, TableGenerator.Alignment.RIGHT, TableGenerator.Alignment.CENTER, TableGenerator.Alignment.RIGHT);
+	    tg.addRow( ChatColor.RED + "§nID§r" + ChatColor.WHITE, ChatColor.GREEN + "§nType§r", "§nArena Name§r" + ChatColor.WHITE, ChatColor.GREEN + "§nStatus§r" + ChatColor.WHITE, ChatColor.GOLD + "§nNb P§r", ChatColor.BLUE + "§nMin" + ChatColor.WHITE + "§n/" +  ChatColor.RED + "§nMax§r", "§nSpawn§r");
+	    tg.addRow();
+	    
+	    for(Arena aren : _ARENAS_sorted.values()) {
 		if(aren instanceof SArena) {
 		    type="Solo";
 		} else {
 		    type="Team";
 		}
 		
-		tg.addRow( ChatColor.RED + Integer.toString(aren._ID) + ChatColor.WHITE, ChatColor.GREEN + type , aren._name + ChatColor.WHITE, aren.getStatus());
+		tg.addRow( ChatColor.RED + Integer.toString(aren._ID) + ChatColor.WHITE, ChatColor.GREEN + type , aren._name + ChatColor.WHITE, aren.getStatus(false),
+			   ChatColor.GOLD + Integer.toString( aren._players.size()), ChatColor.BLUE + Integer.toString( aren._minplayer) + ChatColor.WHITE + " / " + ChatColor.RED + Integer.toString( aren._maxplayer) + ChatColor.WHITE, type == "Solo" ? Integer.toString( aren._spawns.size()) : Integer.toString( aren._spawns_B.size()) + " + " + Integer.toString( aren._spawns_R.size()));
 		
 	    }
 	    
