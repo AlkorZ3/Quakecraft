@@ -1,6 +1,7 @@
 package com.Geekpower14.Quake.Commands;
 
 import com.Geekpower14.Quake.Quake;
+import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -27,6 +28,11 @@ public class ReloadCommand implements BasicCommand {
     }
 
     @Override
+    public String getPermission() {
+        return "Quake.admin";
+    }
+
+    @Override
     public String help(Player p) {
         if (Quake.hasPermission(p, getPermission())) {
             return "/quake reload - Reload config.";
@@ -35,8 +41,10 @@ public class ReloadCommand implements BasicCommand {
     }
 
     @Override
-    public String getPermission() {
-        return "Quake.admin";
+    public List<String> getCompletionList(String[] args) {
+	List<String> list = null;
+
+	return list;
     }
 }
 

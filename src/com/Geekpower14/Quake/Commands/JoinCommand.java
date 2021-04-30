@@ -2,6 +2,7 @@ package com.Geekpower14.Quake.Commands;
 
 import com.Geekpower14.Quake.Arena.Arena;
 import com.Geekpower14.Quake.Quake;
+import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -51,6 +52,11 @@ public class JoinCommand implements BasicCommand {
     }
 
     @Override
+    public String getPermission() {
+        return "Quake.player";
+    }
+
+    @Override
     public String help(Player p) {
         if (Quake.hasPermission(p, getPermission())) {
             return "/quake join [Arena] - Join an arena.";
@@ -59,8 +65,14 @@ public class JoinCommand implements BasicCommand {
     }
 
     @Override
-    public String getPermission() {
-        return "Quake.player";
+    public List<String> getCompletionList(String[] args) {
+	List<String> list = null;
+
+	if( args.length <= 2) {
+	    list = _plugin._am.getArenaNameList();
+	}
+
+	return list;
     }
 }
 

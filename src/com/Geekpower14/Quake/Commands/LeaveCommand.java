@@ -2,6 +2,7 @@ package com.Geekpower14.Quake.Commands;
 
 import com.Geekpower14.Quake.Arena.Arena;
 import com.Geekpower14.Quake.Quake;
+import java.util.List;
 import org.bukkit.entity.Player;
 
 public class LeaveCommand implements BasicCommand {
@@ -27,6 +28,11 @@ public class LeaveCommand implements BasicCommand {
     }
 
     @Override
+    public String getPermission() {
+        return "Quake.player";
+    }
+
+    @Override
     public String help(Player p) {
         if (Quake.hasPermission(p, getPermission())) {
             return "/quake leave - Leave an arena.";
@@ -35,8 +41,10 @@ public class LeaveCommand implements BasicCommand {
     }
 
     @Override
-    public String getPermission() {
-        return "Quake.player";
+    public List<String> getCompletionList(String[] args) {
+	List<String> list = null;
+
+	return list;
     }
 }
 

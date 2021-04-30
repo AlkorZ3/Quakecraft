@@ -9,6 +9,7 @@ package com.Geekpower14.Quake.Commands;
 
 import com.Geekpower14.Quake.Arena.Arena;
 import com.Geekpower14.Quake.Quake;
+import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -48,6 +49,11 @@ public class SetMinCommand implements BasicCommand {
     }
 
     @Override
+    public String getPermission() {
+        return "Quake.edit";
+    }
+
+    @Override
     public String help(Player p) {
         if (Quake.hasPermission(p, getPermission())) {
             return "/quake setmin [Arena] [Number] - Set minimum player in the arena.";
@@ -56,8 +62,14 @@ public class SetMinCommand implements BasicCommand {
     }
 
     @Override
-    public String getPermission() {
-        return "Quake.edit";
+    public List<String> getCompletionList(String[] args) {
+	List<String> list = null;
+
+	if( args.length <= 2) {
+	    list = _plugin._am.getArenaNameList();
+	}
+
+	return list;
     }
 }
 

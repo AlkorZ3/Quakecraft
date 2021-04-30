@@ -4,6 +4,7 @@ import com.Geekpower14.Quake.Arena.Arena;
 import com.Geekpower14.Quake.Arena.SArena;
 import com.Geekpower14.Quake.Arena.TArena;
 import com.Geekpower14.Quake.Quake;
+import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -41,6 +42,11 @@ public class ChangeTeamCommand implements BasicCommand {
     }
 
     @Override
+    public String getPermission() {
+        return "Quake.ChangeTeam";
+    }
+
+    @Override
     public String help(Player p) {
         if (Quake.hasPermission(p, getPermission())) {
             return "/quake team [Name] - Change your team.";
@@ -49,8 +55,10 @@ public class ChangeTeamCommand implements BasicCommand {
     }
 
     @Override
-    public String getPermission() {
-        return "Quake.ChangeTeam";
+    public List<String> getCompletionList(String[] args) {
+	List<String> list = null;
+
+	return list;
     }
 }
 

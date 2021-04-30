@@ -4,6 +4,8 @@ import com.Geekpower14.Quake.Arena.Arena;
 import com.Geekpower14.Quake.Arena.SArena;
 import com.Geekpower14.Quake.Arena.TArena;
 import com.Geekpower14.Quake.Quake;
+import java.util.ArrayList;
+import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -50,6 +52,11 @@ public class AddSpawnCommand implements BasicCommand {
     }
 
     @Override
+    public String getPermission() {
+        return "Quake.edit";
+    }
+
+    @Override
     public String help(Player p) {
         if(Quake.hasPermission(p, getPermission()))
             return "/quake addspawn [Arena] [TEAM|Only for team arena] - Add spawn to an arena.";
@@ -57,8 +64,19 @@ public class AddSpawnCommand implements BasicCommand {
     }
 
     @Override
-    public String getPermission() {
-        return "Quake.edit";
+    public List<String> getCompletionList(String[] args) {
+	List<String> list = null;
+
+	if( args.length <= 2) {
+	    list = _plugin._am.getArenaNameList();
+	} else {
+	    list = new ArrayList();
+
+	    list.add(" ");
+	    list.add("TEAM");
+	}
+
+	return list;
     }
 }
 

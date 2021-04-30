@@ -8,6 +8,7 @@
 package com.Geekpower14.Quake.Commands;
 
 import com.Geekpower14.Quake.Quake;
+import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -36,6 +37,11 @@ public class RemoveLobbyCommand implements BasicCommand {
     }
 
     @Override
+    public String getPermission() {
+        return "Quake.lobby";
+    }
+
+    @Override
     public String help(Player p) {
         if (Quake.hasPermission(p, getPermission())) {
             return "/quake removelobby [ID of the lobby] - Remove a lobby wall.";
@@ -44,8 +50,10 @@ public class RemoveLobbyCommand implements BasicCommand {
     }
 
     @Override
-    public String getPermission() {
-        return "Quake.lobby";
+    public List<String> getCompletionList(String[] args) {
+	List<String> list = null;
+
+	return list;
     }
 }
 

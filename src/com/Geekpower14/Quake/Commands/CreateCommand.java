@@ -1,6 +1,8 @@
 package com.Geekpower14.Quake.Commands;
 
 import com.Geekpower14.Quake.Quake;
+import java.util.ArrayList;
+import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -35,6 +37,11 @@ public class CreateCommand implements BasicCommand {
     }
 
     @Override
+    public String getPermission() {
+        return "Quake.edit";
+    }
+
+    @Override
     public String help(Player p) {
         if (Quake.hasPermission(p, getPermission())) {
             return "/quake create [Arena name] [Type] - Create an arena.";
@@ -43,8 +50,17 @@ public class CreateCommand implements BasicCommand {
     }
 
     @Override
-    public String getPermission() {
-        return "Quake.edit";
+    public List<String> getCompletionList(String[] args) {
+	List<String> list = null;
+
+	if( args.length == 3) {
+	    list = new ArrayList();
+
+	    list.add("Solo");
+	    list.add("Team");
+	}
+
+	return list;
     }
 }
 

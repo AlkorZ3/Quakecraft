@@ -9,6 +9,7 @@ package com.Geekpower14.Quake.Commands;
 
 import com.Geekpower14.Quake.Arena.Arena;
 import com.Geekpower14.Quake.Quake;
+import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -43,6 +44,11 @@ public class StartCommand implements BasicCommand {
     }
 
     @Override
+    public String getPermission() {
+        return "Quake.modo";
+    }
+
+    @Override
     public String help(Player p) {
         if (Quake.hasPermission(p, getPermission())) {
             return "/quake start [Arena] - Force start an arena.";
@@ -51,8 +57,14 @@ public class StartCommand implements BasicCommand {
     }
 
     @Override
-    public String getPermission() {
-        return "Quake.modo";
+    public List<String> getCompletionList(String[] args) {
+	List<String> list = null;
+
+	if( args.length <= 2) {
+	    list = _plugin._am.getArenaNameList();
+	}
+
+	return list;
     }
 }
 

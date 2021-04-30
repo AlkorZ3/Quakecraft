@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.TreeMap;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -177,6 +178,15 @@ public class ArenaManager {
         }
     }
 
+    public List getArenaNameList() {
+	List<String> list = new ArrayList();
+	
+	if(_ARENAS.size() > 0) {
+	    list = new ArrayList<>(_ARENAS.keySet());
+	}
+	return list;
+    }
+    
     public void listArenas(Player player) {
 	String type, status;
 	

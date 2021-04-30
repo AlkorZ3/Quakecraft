@@ -4,6 +4,7 @@ import com.Geekpower14.Quake.Arena.Arena;
 import com.Geekpower14.Quake.Arena.SArena;
 import com.Geekpower14.Quake.Arena.TArena;
 import com.Geekpower14.Quake.Quake;
+import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -54,6 +55,11 @@ public class RemoveSpawnCommand implements BasicCommand {
     }
 
     @Override
+    public String getPermission() {
+        return "Quake.edit";
+    }
+
+    @Override
     public String help(Player p) {
         if (Quake.hasPermission(p, getPermission())) {
             return "/quake removespawn [Arena] [Number] - Remove a spawn of the arena.";
@@ -62,8 +68,14 @@ public class RemoveSpawnCommand implements BasicCommand {
     }
 
     @Override
-    public String getPermission() {
-        return "Quake.edit";
+    public List<String> getCompletionList(String[] args) {
+	List<String> list = null;
+
+	if( args.length <= 2) {
+	    list = _plugin._am.getArenaNameList();
+	}
+
+	return list;
     }
 }
 

@@ -103,10 +103,15 @@ public class MyCommandExecutor implements CommandExecutor {
     public List<String> getCompletionList(String[] args) {
 	List<String> list = null;
 
-	if( args.length == 1) {
+	if( args.length <= 1) {
 	    list = _commands.keySet().stream().collect(Collectors.toList());
 	    list.add( "help");
 	    list.add( "?");
+	}
+	else {
+	    if(_commands.containsKey(args[0])) {
+                list = _commands.get(args[0]).getCompletionList(args);
+	    }
 	}
 
 	return list;
