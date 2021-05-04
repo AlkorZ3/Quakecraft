@@ -192,6 +192,8 @@ public abstract class Arena {
         _minplayer = min;
     }
 
+    public abstract List<String> getSpawnIndexList(String team);
+
     public Location str2loc(String loc) {
         if (loc == null) {
             return null;

@@ -50,12 +50,10 @@ public class CreateCommand implements BasicCommand {
     }
 
     @Override
-    public List<String> getCompletionList(String[] args) {
-	List<String> list = null;
+    public List<String> getCompletionList(Player player, String[] args) {
+	List<String> list = new ArrayList();
 
 	if( args.length == 3) {
-	    list = new ArrayList();
-
 	    list.add("Solo");
 	    list.add("Team");
 	}

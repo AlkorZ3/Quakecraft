@@ -16,6 +16,6 @@ public interface BasicCommand {
 
     public String help(Player var1);
 
-    public List<String> getCompletionList(String[] args);
+    public List<String> getCompletionList(Player player, String[] args);
 }
 

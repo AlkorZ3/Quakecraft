@@ -9,5 +9,5 @@ website: https://obsidia.rx3.net
 commands:
   quake:
     description: Quake command
-    usage: /quake 
+    usage: /quake
     aliases: [q]

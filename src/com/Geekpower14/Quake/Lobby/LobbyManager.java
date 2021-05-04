@@ -53,7 +53,7 @@ public class LobbyManager {
             _locmax.put("lobby" + i, str2loc(nom));
             ++i;
         }
-        _plugin.getLogger().info("load des Lobby ");
+        _plugin.getLogger().info("Lobby loading (" + nombre + ")...");
     }
 
     public void saveconfig() {
@@ -81,7 +81,7 @@ public class LobbyManager {
         } catch (IOException l) {
             // empty catch block
         }
-        _plugin.getLogger().info("save des Lobby ");
+        _plugin.getLogger().info("Lobby saving...");
     }
 
     public Location str2loc(String loc) {
@@ -133,6 +133,13 @@ public class LobbyManager {
         return false;
     }
 
+    public List getLobbyIndexList() {
+	List<String> list = new ArrayList();
+
+	return new ArrayList<>(_locmin.keySet());
+    }
+
+    
     public Boolean initsign() {
         int index = 0;
         int i = 0;

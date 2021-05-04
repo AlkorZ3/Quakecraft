@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
+import java.util.Formatter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -77,6 +78,7 @@ public class SArena extends Arena {
         _potions = l;
         if(config.contains("Nombre"))
             saveConfig();
+        _plugin.getLogger().info("Arena loading [" + _name + "]...");
         return true;
     }
 
@@ -110,7 +112,7 @@ public class SArena extends Arena {
         try {
             config.save(new File(_plugin.getDataFolder(), "/arenas/" + _name + ".yml"));
         } catch (IOException e) {
-            _plugin.getLogger().warning("save default de " + _name + " impossible !");
+            _plugin.getLogger().warning("Save default of" + _name + " impossible!");
             disable();
         }
         return true;
@@ -119,6 +121,7 @@ public class SArena extends Arena {
     @Override
     public Boolean saveConfig() {
         YamlConfiguration config = YamlConfiguration.loadConfiguration((File)new File(_plugin.getDataFolder(), "/arenas/" + _name + ".yml"));
+        _plugin.getLogger().info("Save of " + _name + " ...");
         config.set("Name", _name);
         config.set("Type", "Solo");
         config.set("Map", _map);
@@ -145,7 +148,7 @@ public class SArena extends Arena {
             config.save(new File(_plugin.getDataFolder(), "/arenas/" + _name + ".yml"));
             _plugin.saveConfig();
         } catch (IOException e) {
-            _plugin.getLogger().warning("save de " + _name + "impossible !");
+            _plugin.getLogger().warning("Save of" + _name + "impossible!");
             disable();
             return false;
         }
@@ -306,6 +309,17 @@ public class SArena extends Arena {
 
     public void removespawn(String args) {
         _spawns.remove(Integer.parseInt(args));
+    }
+
+    @Override
+    public List<String> getSpawnIndexList(String team) {
+	List<String> list = new ArrayList();
+	String format= "%0" + String.valueOf(_spawns.size()).length() + "d";
+	
+	for (int i = 0; i < _spawns.size(); i++) {
+	    list.add(String.format( format, i));
+	}
+	return(list);
     }
 
     @Override

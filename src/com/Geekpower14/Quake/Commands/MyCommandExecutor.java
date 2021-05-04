@@ -100,7 +100,7 @@ public class MyCommandExecutor implements CommandExecutor {
         }
     }
 
-    public List<String> getCompletionList(String[] args) {
+    public List<String> getCompletionList(Player player, String[] args) {
 	List<String> list = null;
 
 	if( args.length <= 1) {
@@ -110,7 +110,7 @@ public class MyCommandExecutor implements CommandExecutor {
 	}
 	else {
 	    if(_commands.containsKey(args[0])) {
-                list = _commands.get(args[0]).getCompletionList(args);
+                list = _commands.get(args[0]).getCompletionList(player, args);
 	    }
 	}
 

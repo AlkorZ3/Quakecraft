@@ -4,6 +4,7 @@ import com.Geekpower14.Quake.Arena.Arena;
 import com.Geekpower14.Quake.Arena.SArena;
 import com.Geekpower14.Quake.Arena.TArena;
 import com.Geekpower14.Quake.Quake;
+import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -55,8 +56,19 @@ public class ChangeTeamCommand implements BasicCommand {
     }
 
     @Override
-    public List<String> getCompletionList(String[] args) {
-	List<String> list = null;
+    public List<String> getCompletionList(Player player, String[] args) {
+	List<String> list = new ArrayList();
+	Arena arena = _plugin._am.getArenabyPlayer(player);
+
+	if( ( arena != null) && ( arena instanceof TArena)) {
+	    TArena ta = (TArena)arena;
+	    
+		if( ta.getTeam(player).getName() == "Red") {
+		    list.add("Blue");		
+		} else {
+		    list.add("Red");
+		}
+	}
 
 	return list;
     }

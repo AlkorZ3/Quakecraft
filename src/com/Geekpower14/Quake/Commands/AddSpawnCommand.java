@@ -64,16 +64,19 @@ public class AddSpawnCommand implements BasicCommand {
     }
 
     @Override
-    public List<String> getCompletionList(String[] args) {
-	List<String> list = null;
+    public List<String> getCompletionList(Player player, String[] args) {
+	List<String> list;
 
-	if( args.length <= 2) {
+	if( args.length == 2) {
 	    list = _plugin._am.getArenaNameList();
 	} else {
 	    list = new ArrayList();
-
-	    list.add(" ");
-	    list.add("TEAM");
+            Arena arena = _plugin._am.getArenabyName(args[1]);
+	    
+            if ( (arena != null) && (arena instanceof TArena)) {
+		list.add("Blue");
+		list.add("Red");
+	    }
 	}
 
 	return list;

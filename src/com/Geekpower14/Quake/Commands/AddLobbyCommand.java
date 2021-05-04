@@ -1,6 +1,7 @@
 package com.Geekpower14.Quake.Commands;
 
 import com.Geekpower14.Quake.Quake;
+import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.entity.Player;
 
@@ -37,8 +38,8 @@ implements BasicCommand {
     }
 
     @Override
-    public List<String> getCompletionList(String[] args) {
-	List<String> list = null;
+    public List<String> getCompletionList(Player player, String[] args) {
+	List<String> list = new ArrayList();
 
 	return list;
     }

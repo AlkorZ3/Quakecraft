@@ -77,7 +77,7 @@ public class TArena extends Arena {
             l.add(StrToPo(popo));
         }
         _potions = l;
-        _plugin.getLogger().info("load de " + _name);
+        _plugin.getLogger().info("Arena loading [" + _name + "]...");
         return true;
     }
 
@@ -113,7 +113,7 @@ public class TArena extends Arena {
             config.save(new File(_plugin.getDataFolder(), "/arenas/" + _name + ".yml"));
         }
         catch (IOException e) {
-            _plugin.getLogger().warning("save default de " + _name + " impossible !");
+            _plugin.getLogger().warning("Save default of " + _name + " impossible!");
             disable();
         }
         return true;
@@ -122,7 +122,7 @@ public class TArena extends Arena {
     @Override
     public Boolean saveConfig() {
         YamlConfiguration config = YamlConfiguration.loadConfiguration((File)new File(_plugin.getDataFolder(), "/arenas/" + _name + ".yml"));
-        _plugin.getLogger().info("save de " + _name);
+        _plugin.getLogger().info("Save of " + _name + " ...");
         config.set("Version", Quake._version);
         config.set("Name", _name);
         config.set("Type", "Team");
@@ -161,7 +161,7 @@ public class TArena extends Arena {
             config.save(new File(_plugin.getDataFolder(), "/arenas/" + _name + ".yml"));
             _plugin.saveConfig();
         } catch (IOException e) {
-            _plugin.getLogger().warning("save de " + _name + "impossible !");
+            _plugin.getLogger().warning("Save of " + _name + "impossible!");
             disable();
             return false;
         }
@@ -459,6 +459,29 @@ public class TArena extends Arena {
             return _spawns_R.size();
         }
         return 0;
+    }
+
+    @Override
+    public List<String> getSpawnIndexList(String team) {
+	List<String> list = new ArrayList();
+	List<Location> spawns;
+	
+        if (team.equalsIgnoreCase("Blue")) {
+	    spawns= _spawns_B;
+	} else {
+	    if (team.equalsIgnoreCase("Red")) {
+		spawns= _spawns_B;
+	    } else {
+		return null;
+	    }
+	}
+	    
+	String format= "%0" + String.valueOf(spawns.size()).length() + "d";
+	
+	for (int i = 0; i < spawns.size(); i++) {
+	    list.add(String.format( format, i));
+	}
+	return(list);
     }
 
     public void win(ATeam team) {

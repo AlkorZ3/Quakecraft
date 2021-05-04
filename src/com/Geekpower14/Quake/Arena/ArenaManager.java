@@ -33,8 +33,6 @@ public class ArenaManager {
 	    if(f.getName().endsWith(".yml")) {
 		    String name = f.getName().replaceAll(".yml", "");
 		    Maps.add(name);
-
-		    _plugin.getLogger().info("Loading: [" + f.getName() + "]");
 		}
         }
         if(Maps.isEmpty())

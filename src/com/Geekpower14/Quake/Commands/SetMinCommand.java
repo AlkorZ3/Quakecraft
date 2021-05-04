@@ -9,6 +9,7 @@ package com.Geekpower14.Quake.Commands;
 
 import com.Geekpower14.Quake.Arena.Arena;
 import com.Geekpower14.Quake.Quake;
+import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -62,11 +63,13 @@ public class SetMinCommand implements BasicCommand {
     }
 
     @Override
-    public List<String> getCompletionList(String[] args) {
-	List<String> list = null;
+    public List<String> getCompletionList(Player player, String[] args) {
+	List<String> list;
 
 	if( args.length <= 2) {
 	    list = _plugin._am.getArenaNameList();
+	} else {
+	    list = new ArrayList();
 	}
 
 	return list;
