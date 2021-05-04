@@ -1,12 +1,11 @@
 ### This version of QuakeCraft is a fork from bl4ckskull666
-### This Scource Code is free available all time for everybody. The only condition to use is to add your own name to the version number in the plugin.yml of the plugin.
+### Thanks to Geekpower14 for the original code and thanks to bl4ckskull666 for the resurection!
+### This Scource Code is free available all time for everybody. The only condition is to respect the GPL license and keep track of the previous authors into the plugin.yml.
 
 ![Quake Plugin](https://media.forgecdn.net/avatars/67/696/636163107094889338.png)
 
 # Quake_v3.5.0-Alpha
 This Quake Version is for Minecraft Spigot 1.16.5.
-
-For Questions and Help please join [Discord](https://www.survival-piraten.de/discord) , after join type !ahoi and !coding in Lobby channel.
 
 ####################################################
 
@@ -30,9 +29,10 @@ For Questions and Help please join [Discord](https://www.survival-piraten.de/dis
 * ScoreBoard
 * Dynamic Lobby and Multiple Lobby !
 * Permissions
+* Command completion
 
 ## Gameplay features
-* Sneak is disable, when you sneak other people see you normally (You can disable in the arena config).
+* Sneak is disabled, when you sneak other people see you normally (You can disable in the arena config).
 * Jump Boost 2 and Speed 2 effect in the arena (You can disable in the arena config).
 * Spawn-Kill reduce by 0.5 sec of invicibility at respawn.
 * Others..
@@ -40,7 +40,7 @@ For Questions and Help please join [Discord](https://www.survival-piraten.de/dis
 ####################################################
 
 ## How to install ( Depended WorldEdit / Softdepended Vault ):
-* Download the plugin. [Last version](https://www.craft-my-life.de/team/plugins)
+* Download the plugin.
 * Stop the Server.
 * Place it in the plugin folder (plugins/).
 * Restart/Reload the server again (for create new files).
@@ -51,25 +51,17 @@ For Questions and Help please join [Discord](https://www.survival-piraten.de/dis
 
 ## How to use: ( ignore the [] , it's mark placeholder )
 **Create an Arena**
-* Do /quake create [Arena name] - to create an arena.
+* Do /quake create [Arena name] [Solo | Team] - to create an arena.
 * Do /quake setmin [Arena name] [number] - to set the minimum number of player to begin the game.
 * Do /quake setmax [Arena name] [number] - to set the maximum number of player can join the game.
 * Do /quake setmap [Arena name] [Name of map] - to set the name of the map will display on the lobby (Unknown will be display if nothing is set).
-* Do /quake addspawn [Arena name] - in the Arena, to add a randoms spawn of the Arena. (Do this many time of you want !)
+* Do /quake addspawn [Arena name] [Read | Blue (Only for team arena)] - in the Arena, to add a randoms spawn of the Arena. (Do this many time of you want !)
 * Do /quake save [Arena name] - to save the config of the Arena. Enjoy !
 
-**OUT OF DATE --- Create the lobby ( You need WorldEdit to define the lobby wall. )**
 * Define a lobby wall with WorldEdit. A Wall of Signs.
-* Do /quake addlobby - to define the WorldEdit region as a Lobby wall.
-*  Do /quake setlobbyspawn - to define the spawn at the end of the game.
+* Do /quake addlobby - to define the WorldEdit region as a Lobby wall (more than one can be defined).
+* Do /quake setlobbyspawn - to add a spawn at the end of the game (more than one can be defined).
 
-**New Lobby System since 3.4.3**
+**New Lobby System
+
 [Read this Page](https://github.com/Bl4ckSkull666/Quake---The-Gun-Game/wiki/Lobby-system)
-
-####################################################
-
-[*If you like the work, you can spend my kids a Icecream*](https://www.tipeeestream.com/bl4ckskull666/donation)
-*( PayPal/PaySafeCard & more )*
-
-## IceCream Spend List:
-* ofunny , Thanks for the big Ice Cream cup. :-) [01. June 2020]

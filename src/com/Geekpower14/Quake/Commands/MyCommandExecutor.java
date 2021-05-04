@@ -101,7 +101,7 @@ public class MyCommandExecutor implements CommandExecutor {
     }
 
     public List<String> getCompletionList(Player player, String[] args) {
-	List<String> list = null;
+	List<String> list;
 
 	if( args.length <= 1) {
 	    list = _commands.keySet().stream().collect(Collectors.toList());
@@ -111,6 +111,9 @@ public class MyCommandExecutor implements CommandExecutor {
 	else {
 	    if(_commands.containsKey(args[0])) {
                 list = _commands.get(args[0]).getCompletionList(player, args);
+	    }
+	    else {
+		list = new ArrayList();
 	    }
 	}
 
