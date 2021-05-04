@@ -1,6 +1,6 @@
 ### This version of QuakeCraft is a fork from bl4ckskull666
 ### Thanks to Geekpower14 for the original code and thanks to bl4ckskull666 for the resurection!
-### This Scource Code is free available all time for everybody. The only condition is to respect the GPL license and keep track of the previous authors into the plugin.yml.
+### This source code is freely available for everybody. The only condition is to respect the GPL license and keep track of the previous authors into the plugin.yml.
 
 ![Quake Plugin](https://media.forgecdn.net/avatars/67/696/636163107094889338.png)
 

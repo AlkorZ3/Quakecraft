@@ -24,7 +24,7 @@ public class MyTabCompleter implements TabCompleter
     @Override
     public List<String> onTabComplete (CommandSender sender, Command cmd, String label, String[] args) {
 	List<String> list = new ArrayList<>();
-       	_plugin.getLogger().info("MTC [" + cmd + "] [" + label + "] [" + args.length + "] [[" + Arrays.toString(args) + "]] ["+ args[args.length - 1] + "]");
+	//       	_plugin.getLogger().info("MTC [" + cmd + "] [" + label + "] [" + args.length + "] [[" + Arrays.toString(args) + "]] ["+ args[args.length - 1] + "]");
    	
 	if(cmd.getName().equalsIgnoreCase("quake") && args.length >= 0){
 	    if(sender instanceof Player){
