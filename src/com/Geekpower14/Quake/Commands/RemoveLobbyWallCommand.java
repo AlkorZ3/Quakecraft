@@ -13,10 +13,10 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class RemoveLobbyCommand implements BasicCommand {
+public class RemoveLobbyWallCommand implements BasicCommand {
     private final Quake _plugin;
 
-    public RemoveLobbyCommand(Quake pl) {
+    public RemoveLobbyWallCommand(Quake pl) {
         _plugin = pl;
     }
 
@@ -24,12 +24,12 @@ public class RemoveLobbyCommand implements BasicCommand {
     public boolean onCommand(Player player, String[] args) {
         if (Quake.hasPermission(player, getPermission())) {
             if (args.length != 1) {
-                player.sendMessage(ChatColor.RED + "Please type a good number of lobby !");
+                player.sendMessage(ChatColor.RED + "Please type a good lobby wall ID!");
                 return true;
             }
-            int lobby = Integer.valueOf(args[0]);
-            _plugin._lobby.removeLobby("lobby" + (lobby - 1));
-            player.sendMessage(ChatColor.YELLOW + "Lobby number : " + (lobby - 1) + " removed with success");
+            int lobbywall = Integer.valueOf(args[0]);
+            _plugin._lobby.removeLobbyWall("lobbywall " + lobbywall);
+            player.sendMessage(ChatColor.YELLOW + "Lobby wall number " + lobbywall + " successfully removed.");
             _plugin._lobby.saveconfig();
         } else {
             player.sendMessage(_plugin._trad.get("NoPermission"));
@@ -45,7 +45,7 @@ public class RemoveLobbyCommand implements BasicCommand {
     @Override
     public String help(Player p) {
         if (Quake.hasPermission(p, getPermission())) {
-            return "/quake removelobby [ID of the lobby] - Remove a lobby wall.";
+            return "/quake removelobbywall [ID of the lobby wall] - Remove a lobby wall.";
         }
         return "";
     }
@@ -56,7 +56,7 @@ public class RemoveLobbyCommand implements BasicCommand {
 
 	if( args.length <= 2) {
 
-	    list = _plugin._lobby.getLobbyIndexList();
+	    list = _plugin._lobby.getLobbyWallIDList();
 	} else {
 	    list = new ArrayList();
 	}

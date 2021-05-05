@@ -31,9 +31,11 @@ public class MyCommandExecutor implements CommandExecutor {
         _commands.put("setmap", new SetMapCommand(_plugin));
         _commands.put("setmin", new SetMinCommand(_plugin));
         _commands.put("setmax", new SetMaxCommand(_plugin));
-        _commands.put("addlobby", new AddLobbyCommand(_plugin));
+        _commands.put("addlobbyarea", new AddLobbyAreaCommand(_plugin));
+        _commands.put("addlobbywall", new AddLobbyWallCommand(_plugin));
         _commands.put("setlobbyspawn", new SetLobbySpawnCommand(_plugin));
-        _commands.put("removelobby", new RemoveLobbyCommand(_plugin));
+        _commands.put("removelobbyarea", new RemoveLobbyAreaCommand(_plugin));
+        _commands.put("removelobbywall", new RemoveLobbyWallCommand(_plugin));
         _commands.put("join", new JoinCommand(_plugin));
         _commands.put("leave", new LeaveCommand(_plugin));
         _commands.put("start", new StartCommand(_plugin));

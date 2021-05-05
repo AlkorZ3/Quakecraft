@@ -24,8 +24,10 @@ import org.bukkit.entity.Player;
 
 public class LobbyManager {
     public Quake _plugin;
-    public HashMap<String, Location> _locmin = new HashMap();
-    public HashMap<String, Location> _locmax = new HashMap();
+    public HashMap<String, Location> _arealocmin = new HashMap();
+    public HashMap<String, Location> _arealocmax = new HashMap();
+    public HashMap<String, Location> _walllocmin = new HashMap();
+    public HashMap<String, Location> _walllocmax = new HashMap();
     public Location _lobbyspawn = null;
     public List<Lobby> _LOBBYS = new ArrayList<>();
     public List<Lobby_Sign> _LOBBYS_SIGN = new ArrayList<>();
@@ -36,42 +38,83 @@ public class LobbyManager {
     }
 
     public final void loadconfig() {
-        String nom;
-        File fichier_config = new File(_plugin.getDataFolder(), String.valueOf(File.separator) + "lobby.yml");
-        YamlConfiguration config = YamlConfiguration.loadConfiguration((File)fichier_config);
+        String name;
+	int number,i;
+        File config_file = new File(_plugin.getDataFolder(), String.valueOf(File.separator) + "lobby.yml");
+        YamlConfiguration config = YamlConfiguration.loadConfiguration((File)config_file);
         _lobbyspawn = str2loc(config.getString("LobbySpawn"));
-        int nombre = config.getInt("Nombre");
-        int i = 0;
-        while (i < nombre) {
-            nom = config.getString("min.lobby" + i);
-            _locmin.put("lobby" + i, str2loc(nom));
+
+        number = config.getInt("LobbyAreaNb");
+        i = 0;
+        while (i < number) {
+            name = config.getString("min.lobbyarea" + i);
+            _arealocmin.put("lobbyarea" + i, str2loc(name));
             ++i;
         }
         i = 0;
-        while (i < nombre) {
-            nom = config.getString("max.lobby" + i);
-            _locmax.put("lobby" + i, str2loc(nom));
+        while (i < number) {
+            name = config.getString("max.lobbyarea" + i);
+            _arealocmax.put("lobbyarea" + i, str2loc(name));
             ++i;
         }
-        _plugin.getLogger().info("Lobby loading (" + nombre + ")...");
+        _plugin.getLogger().info("Lobby Area Loaded: " + number + "!");
+
+        number = config.getInt("LobbyWallNb");
+        i = 0;
+        while (i < number) {
+            name = config.getString("min.lobbywall" + i);
+            _walllocmin.put("lobbywall" + i, str2loc(name));
+            ++i;
+        }
+        i = 0;
+        while (i < number) {
+            name = config.getString("max.lobbywall" + i);
+            _walllocmax.put("lobbywall" + i, str2loc(name));
+            ++i;
+        }
+        _plugin.getLogger().info("Lobby Wall Loaded: " + number + "!");
     }
 
     public void saveconfig() {
         Location loc;
-        File fichier_config = new File(_plugin.getDataFolder(), String.valueOf(File.separator) + "lobby.yml");
-        YamlConfiguration config = YamlConfiguration.loadConfiguration(fichier_config);
+        File config_file = new File(_plugin.getDataFolder(), String.valueOf(File.separator) + "lobby.yml");
+
+	config_file.delete();
+
+	if(!config_file.exists()) {
+	    try {
+		config_file.createNewFile();
+	    } catch(IOException e) {
+		// empty catch block
+	    }
+	}
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(config_file);
+
+	
         if(_lobbyspawn != null) {
             config.set("LobbySpawn", (String.valueOf(_lobbyspawn.getWorld().getName()) + ", " + _lobbyspawn.getX() + ", " + _lobbyspawn.getY() + ", " + _lobbyspawn.getZ() + ", " + _lobbyspawn.getYaw() + ", " + _lobbyspawn.getPitch()));
         }
         
-        config.set("Nombre", _locmin.size());
-        for(String l2 : _locmin.keySet()) {
-            loc = _locmin.get(l2);
+        config.set("LobbyAreaNb", _arealocmin.size());
+        config.set("LobbyWallNb", _walllocmin.size());
+
+        for(String l2 : _arealocmin.keySet()) {
+            loc = _arealocmin.get(l2);
             config.set("min." + l2, (String.valueOf(loc.getWorld().getName()) + ", " + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + ", " + loc.getYaw() + ", " + loc.getPitch()));
         }
         
-        for(String l2 : _locmax.keySet()) {
-            loc = _locmax.get(l2);
+        for(String l2 : _arealocmax.keySet()) {
+            loc = _arealocmax.get(l2);
+            config.set("max." + l2, (String.valueOf(loc.getWorld().getName()) + ", " + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + ", " + loc.getYaw() + ", " + loc.getPitch()));
+        }
+        
+        for(String l2 : _walllocmin.keySet()) {
+            loc = _walllocmin.get(l2);
+            config.set("min." + l2, (String.valueOf(loc.getWorld().getName()) + ", " + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + ", " + loc.getYaw() + ", " + loc.getPitch()));
+        }
+        
+        for(String l2 : _walllocmax.keySet()) {
+            loc = _walllocmax.get(l2);
             config.set("max." + l2, (String.valueOf(loc.getWorld().getName()) + ", " + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + ", " + loc.getYaw() + ", " + loc.getPitch()));
         }
         
@@ -81,7 +124,7 @@ public class LobbyManager {
         } catch (IOException l) {
             // empty catch block
         }
-        _plugin.getLogger().info("Lobby saving...");
+        _plugin.getLogger().info("Lobby config saved!");
     }
 
     public Location str2loc(String loc) {
@@ -98,32 +141,60 @@ public class LobbyManager {
         _lobbyspawn = player.getLocation();
     }
 
-    public Boolean removeLobby(String lobby) {
-        _locmin.remove(lobby);
-        _locmax.remove(lobby);
-        HashMap<String, Location> tempmin = new HashMap<>();
-        HashMap<String, Location> tempmax = new HashMap<>();
-        int i = 0;
-        for (String s : _locmin.keySet()) {
-            tempmin.put("lobby" + i, _locmin.get(s));
-            tempmax.put("lobby" + i, _locmax.get(s));
-            ++i;
-        }
-        _locmin = tempmin;
-        _locmax = tempmax;
-        return true;
-    }
-
-    public Boolean addLobby(Player player) {
-        String lobby = "lobby" + _locmin.size();
+    public Boolean addLobbyArea(Player player) {
+        String lobby = "lobbyarea" + _arealocmin.size();
         try {
             LocalSession ls = WorldEdit.getInstance().getSessionManager().get(BukkitAdapter.adapt(player));
             Region reg = ls.getSelection(BukkitAdapter.adapt(player.getWorld()));
             
             if(reg != null) {
-                _locmin.put(lobby, BukkitAdapter.adapt(player.getWorld(), reg.getMinimumPoint()));
-                _locmax.put(lobby, BukkitAdapter.adapt(player.getWorld(), reg.getMaximumPoint()));
-                player.sendMessage(ChatColor.YELLOW + "Lobby " + _locmin.size() + " cr\u00e9e successful \u00e9s");
+                _arealocmin.put(lobby, BukkitAdapter.adapt(player.getWorld(), reg.getMinimumPoint()));
+                _arealocmax.put(lobby, BukkitAdapter.adapt(player.getWorld(), reg.getMaximumPoint()));
+                player.sendMessage(ChatColor.YELLOW + "Lobby " + (_arealocmin.size() - 1) + " successfully created.");
+                return true;
+            }
+        } catch(Exception ex) {
+            player.sendMessage(ChatColor.RED + "Internal error on region selection.");
+        }
+        return false;
+    }
+
+    public Boolean removeLobbyArea(String lobby) {
+        _arealocmin.remove(lobby);
+        _arealocmax.remove(lobby);
+        HashMap<String, Location> tempmin = new HashMap<>();
+        HashMap<String, Location> tempmax = new HashMap<>();
+        int i = 0;
+        for (String s : _arealocmin.keySet()) {
+            tempmin.put("lobbyarea" + i, _arealocmin.get(s));
+            tempmax.put("lobbyarea" + i, _arealocmax.get(s));
+            ++i;
+        }
+        _arealocmin = tempmin;
+        _arealocmax = tempmax;
+        return true;
+    }
+
+    public List getLobbyAreaIDList() {
+	List<String> list = new ArrayList();
+	
+	for (int i = 0; i < _arealocmin.size(); i++) {
+	    list.add(String.valueOf(i));
+	}
+
+	return list;
+    }
+    
+    public Boolean addLobbyWall(Player player) {
+        String lobby = "lobbywall" + _walllocmin.size();
+        try {
+            LocalSession ls = WorldEdit.getInstance().getSessionManager().get(BukkitAdapter.adapt(player));
+            Region reg = ls.getSelection(BukkitAdapter.adapt(player.getWorld()));
+            
+            if(reg != null) {
+                _walllocmin.put(lobby, BukkitAdapter.adapt(player.getWorld(), reg.getMinimumPoint()));
+                _walllocmax.put(lobby, BukkitAdapter.adapt(player.getWorld(), reg.getMaximumPoint()));
+                player.sendMessage(ChatColor.YELLOW + "Lobby wall " + (_walllocmin.size() - 1) + " successfully created.");
                 initsign();
                 return true;
             }
@@ -133,23 +204,42 @@ public class LobbyManager {
         return false;
     }
 
-    public List getLobbyIndexList() {
-	List<String> list = new ArrayList();
-
-	return new ArrayList<>(_locmin.keySet());
+    public Boolean removeLobbyWall(String lobbywall) {
+        _walllocmin.remove(lobbywall);
+        _walllocmax.remove(lobbywall);
+        HashMap<String, Location> tempmin = new HashMap<>();
+        HashMap<String, Location> tempmax = new HashMap<>();
+        int i = 0;
+        for (String s : _walllocmin.keySet()) {
+            tempmin.put("lobbywall" + i, _walllocmin.get(s));
+            tempmax.put("lobbywall" + i, _walllocmax.get(s));
+            ++i;
+        }
+        _walllocmin = tempmin;
+        _walllocmax = tempmax;
+        return true;
     }
 
+    public List getLobbyWallIDList() {
+	List<String> list = new ArrayList();
+	
+	for (int i = 0; i < _walllocmin.size(); i++) {
+	    list.add(String.valueOf(i));
+	}
+
+	return list;
+    }
     
     public Boolean initsign() {
         int index = 0;
         int i = 0;
-        while(i < _locmin.size()) {
+        while(i < _walllocmin.size()) {
             int x;
             int y;
             Arena arena;
-            String lobby = "lobby" + i;
-            Location min = _locmin.get(lobby);
-            Location max = _locmax.get(lobby);
+            String lobby = "lobbywall" + i;
+            Location min = _walllocmin.get(lobby);
+            Location max = _walllocmax.get(lobby);
             int xmax = 0;
             int xmin = 0;
             int z = 0;
@@ -201,31 +291,61 @@ public class LobbyManager {
         return true;
     }
 
-    public Boolean isinLobby(Location loc) {
-        int oui = _locmin.size();
+    public Boolean isinLobbyArea(Location loc) {
+        int yes = _arealocmin.size();
         int i = 0;
-        while (i < _locmin.size()) {
-            String lobby = "lobby" + i;
-            Location min = _locmin.get(lobby);
-            Location max = _locmax.get(lobby);
+        while (i < _arealocmin.size()) {
+            String lobby = "lobbyarea" + i;
+            Location min = _arealocmin.get(lobby);
+            Location max = _arealocmax.get(lobby);
             if (min.getWorld() != loc.getWorld()) {
-                --oui;
+                --yes;
             } else if (loc.getX() < min.getX()) {
-                --oui;
+                --yes;
             } else if (loc.getX() > max.getX()) {
-                --oui;
+                --yes;
             } else if (loc.getZ() < min.getZ()) {
-                --oui;
+                --yes;
             } else if (loc.getZ() > max.getZ()) {
-                --oui;
+                --yes;
             } else if (loc.getY() < min.getY()) {
-                --oui;
+                --yes;
             } else if (loc.getY() > max.getY()) {
-                --oui;
+                --yes;
             }
             ++i;
         }
-        if (oui <= 0) {
+        if (yes <= 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public Boolean isinLobbyWall(Location loc) {
+        int yes = _walllocmin.size();
+        int i = 0;
+        while (i < _walllocmin.size()) {
+            String lobby = "lobbywall" + i;
+            Location min = _walllocmin.get(lobby);
+            Location max = _walllocmax.get(lobby);
+            if (min.getWorld() != loc.getWorld()) {
+                --yes;
+            } else if (loc.getX() < min.getX()) {
+                --yes;
+            } else if (loc.getX() > max.getX()) {
+                --yes;
+            } else if (loc.getZ() < min.getZ()) {
+                --yes;
+            } else if (loc.getZ() > max.getZ()) {
+                --yes;
+            } else if (loc.getY() < min.getY()) {
+                --yes;
+            } else if (loc.getY() > max.getY()) {
+                --yes;
+            }
+            ++i;
+        }
+        if (yes <= 0) {
             return false;
         }
         return true;

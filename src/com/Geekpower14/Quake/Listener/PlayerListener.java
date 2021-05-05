@@ -52,7 +52,7 @@ public class PlayerListener implements Listener {
         Arena arena = _plugin._am.getArenabyPlayer(player);
         if(arena == null) {
             Block block = event.getClickedBlock();
-            if ((action == Action.LEFT_CLICK_BLOCK || action == Action.RIGHT_CLICK_BLOCK) && _plugin._lobby.isinLobby(event.getClickedBlock().getLocation()) && block.getState() instanceof Sign) {
+            if ((action == Action.LEFT_CLICK_BLOCK || action == Action.RIGHT_CLICK_BLOCK) && _plugin._lobby.isinLobbyWall(event.getClickedBlock().getLocation()) && block.getState() instanceof Sign) {
                 Sign sign = (Sign)block.getState();
                 if (sign.getLine(1).equals("")) {
                     return;
@@ -244,20 +244,17 @@ public class PlayerListener implements Listener {
     @EventHandler(priority=EventPriority.HIGHEST)
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         Player p = event.getPlayer();
-        if (isScoreWorld(event.getFrom().getWorld().getName()) && !isScoreWorld(event.getTo().getWorld().getName())) {
-            p.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
-            return;
-        }
-        if (!isScoreWorld(event.getFrom().getWorld().getName()) && isScoreWorld(event.getTo().getWorld().getName())) {
-            if (_plugin._scores.containsKey(p.getName())) {
-                p.setScoreboard(_plugin._scores.get(p.getName()).getScoreBoard());
-            } else {
-                _plugin._scores.put(p.getName(), new ScoreB(_plugin, p));
-            }
-            return;
-        }
-    }
 
+	if( isScoreWorld(event.getFrom().getWorld().getName()) ^ isScoreWorld(event.getTo().getWorld().getName())) {
+
+	    if (_plugin._scores.containsKey(p.getName())) {
+		_plugin._scores.get(p.getName()).displayScoreB( event.getTo().getWorld().getName());
+	    } else {
+		_plugin._scores.put(p.getName(), new ScoreB(_plugin, p));
+	    }
+	}
+    }
+	    
     @EventHandler(priority=EventPriority.HIGHEST)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
@@ -354,7 +351,7 @@ public class PlayerListener implements Listener {
         if (arena == null) {
             return;
         }
-        _plugin.getLogger().warning("Player : " + player.getName() + " Rage Quit !");
+        _plugin.getLogger().warning("Player : " + player.getName() + " Rage Quit!");
         arena.CrashLeaveArena(event.getPlayer());
     }
 

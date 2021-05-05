@@ -5,18 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.entity.Player;
 
-public class AddLobbyCommand
+public class AddLobbyAreaCommand
 implements BasicCommand {
     private final Quake _plugin;
 
-    public AddLobbyCommand(Quake pl) {
+    public AddLobbyAreaCommand(Quake pl) {
         _plugin = pl;
     }
 
     @Override
     public boolean onCommand(Player player, String[] args) {
         if (Quake.hasPermission(player, getPermission())) {
-            _plugin._lobby.addLobby(player);
+            _plugin._lobby.addLobbyArea(player);
             _plugin._lobby.saveconfig();
         } else {
             player.sendMessage(_plugin._trad.get("NoPermission"));
@@ -32,7 +32,7 @@ implements BasicCommand {
     @Override
     public String help(Player p) {
         if (Quake.hasPermission(p, getPermission())) {
-            return "/quake addlobby - Add a sign wall lobby.";
+            return "/quake addlobbyarea - Add a lobby area.";
         }
         return "";
     }
