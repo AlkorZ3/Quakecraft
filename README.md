@@ -23,11 +23,12 @@ This Quake Version is for Minecraft Spigot 1.16.5.
 * Quake.admin - Allow all permissions.
 
 ## Features
-* Economy support / Self economy
 * Multiple arenas
+* Multiple Lobby area and dynamic Lobby wall!
+* Economy support / Self economy
+* Shop
 * Timer
 * ScoreBoard
-* Dynamic Lobby and Multiple Lobby !
 * Permissions
 * Command completion
 
@@ -58,10 +59,13 @@ This Quake Version is for Minecraft Spigot 1.16.5.
 * Do /quake addspawn [Arena name] [Read | Blue (Only for team arena)] - in the Arena, to add a randoms spawn of the Arena. (Do this many time of you want !)
 * Do /quake save [Arena name] - to save the config of the Arena. Enjoy !
 
-* Define a lobby wall with WorldEdit. A Wall of Signs.
-* Do /quake addlobby - to define the WorldEdit region as a Lobby wall (more than one can be defined).
 * Do /quake setlobbyspawn - to add a spawn at the end of the game (more than one can be defined).
+* Define a lobby wall with WorldEdit :  A Wall of Signs
+* Do /quake addlobbywall - to define the WorldEdit region as a Lobby wall (more than one can be defined).
+* Define a lobby area with WorldEdit.
+* Do /quake addlobbyarea - to define the WorldEdit region as a Lobby area (more than one can be defined).
 
 **New Lobby System
+Warning, the release 3.5.0 break the "lobby.yml" file format. You will have to redefine the lobby wall...
 
 [Read this Page](https://github.com/Bl4ckSkull666/Quake---The-Gun-Game/wiki/Lobby-system)
