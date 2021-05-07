@@ -50,7 +50,8 @@ public class PlayerListener implements Listener {
         Action action = event.getAction();
         ItemStack hand = player.getInventory().getItemInMainHand();
         Arena arena = _plugin._am.getArenabyPlayer(player);
-        if(arena == null) {
+
+	if(arena == null) {
             Block block = event.getClickedBlock();
             if ((action == Action.LEFT_CLICK_BLOCK || action == Action.RIGHT_CLICK_BLOCK) && _plugin._lobby.isinLobbyWall(event.getClickedBlock().getLocation()) && block.getState() instanceof Sign) {
                 Sign sign = (Sign)block.getState();
@@ -65,7 +66,7 @@ public class PlayerListener implements Listener {
                 event.setCancelled(true);
                 return;
             }
-            if (event.getItem() != null && event.getItem().getType().equals(_plugin._shopId) && _plugin._shopWorlds.contains(event.getPlayer().getWorld().getName()) && Quake.hasPermission(player, "Quake.Shop")) {
+            if (event.getItem() != null && event.getItem().getType().equals(_plugin._shopId) && _plugin._QuakeWorlds.contains(event.getPlayer().getWorld().getName()) && Quake.hasPermission(player, "Quake.Shop")) {
                 _plugin._shop.getMainShop(player);
                 _plugin._imm.show(player);
                 event.setCancelled(true);
@@ -134,8 +135,8 @@ public class PlayerListener implements Listener {
         }
     }
 
-    public Boolean isScoreWorld(String name) {
-        if (_plugin._ScoreWorlds.contains(name)) {
+    public Boolean isQuakeWorld(String name) {
+        if (_plugin._QuakeWorlds.contains(name)) {
             return true;
         }
         return false;
@@ -245,8 +246,10 @@ public class PlayerListener implements Listener {
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         Player p = event.getPlayer();
 
-	if( isScoreWorld(event.getFrom().getWorld().getName()) ^ isScoreWorld(event.getTo().getWorld().getName())) {
+	if( isQuakeWorld(event.getFrom().getWorld().getName()) ^ isQuakeWorld(event.getTo().getWorld().getName())) {
 
+	    _plugin._shop.displayShopItem( p, event.getTo().getWorld().getName());
+	    
 	    if (_plugin._scores.containsKey(p.getName())) {
 		_plugin._scores.get(p.getName()).displayScoreB( event.getTo().getWorld().getName());
 	    } else {

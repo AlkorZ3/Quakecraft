@@ -46,25 +46,10 @@ public class Task implements Runnable {
                 resetTime(arena);
                 return;
             }
-            if (_plugin._shopWorlds.contains(p.getWorld().getName()) && !p.getInventory().contains(_plugin._shop.getShop()) && Quake.hasPermission(p, "Quake.Shop")) {
-                ItemStack[] arritemStack = p.getInventory().getContents();
-                int n3 = arritemStack.length;
-                int n4 = 0;
-                while (n4 < n3) {
-                    ItemStack it = arritemStack[n4];
-                    if (it != null && it.getItemMeta() != null && it.getItemMeta().getDisplayName() != null && it.getItemMeta().getDisplayName().equalsIgnoreCase(_plugin._shop.getShop().getItemMeta().getDisplayName())) {
-                        try {
-                            p.getInventory().remove(it);
-                        } catch (Exception var10_10) {
-                            // empty catch block
-                        }
-                    }
-                    ++n4;
-                }
-                p.getInventory().addItem(new ItemStack[]{_plugin._shop.getShop()});
-            }
-            if (isScoreWorld(p.getWorld().getName())) {
-                giveScoreBoard(p);
+ 
+            if (isQuakeWorld(p.getWorld().getName())) {
+		_plugin._shop.displayShopItem( p, "");
+		giveScoreBoard(p);
             }
         }
     }
@@ -77,8 +62,8 @@ public class Task implements Runnable {
         }
     }
 
-    public Boolean isScoreWorld(String name) {
-        if (_plugin._ScoreWorlds.contains(name)) {
+    public Boolean isQuakeWorld(String name) {
+        if (_plugin._QuakeWorlds.contains(name)) {
             return true;
         }
         return false;

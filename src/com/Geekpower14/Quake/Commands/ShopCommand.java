@@ -21,8 +21,8 @@ public class ShopCommand implements BasicCommand {
     @Override
     public boolean onCommand(Player player, String[] args) {
         if (Quake.hasPermission(player, getPermission())) {
-            _plugin._shop.getMainShop(player);
-            _plugin._imm.show(player);
+	    _plugin._shop.getMainShop(player);
+	    _plugin._imm.show(player);
         } else {
             player.sendMessage(_plugin._trad.get("NoPermission"));
         }

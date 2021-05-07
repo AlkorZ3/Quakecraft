@@ -41,7 +41,7 @@ public class ShopManager {
         }
         
         _plugin._imm.create(p, "Quake Manager", 54, new IconMenu.OptionClickEventHandler() {
-
+		
             @Override
             public void onOptionClick(IconMenu.OptionClickEvent event) {
                 if (event.getName() == null) {
@@ -511,5 +511,73 @@ public class ShopManager {
         }
     }
 
+    public void displayShopItem(Player player, String target_world) {
+	String world;
+	
+	if( target_world != "") {
+	    world = target_world;
+	} else {
+	    world = player.getWorld().getName();
+	}
+	
+	if( isQuakeWorld( world)) {
+	    if( _plugin._lobby.isinLobbyArea(player.getLocation())) {
+		enableShopItem(player);
+	    } else {
+		disableShopItem(player);
+	    }
+	} else {
+		disableShopItem(player);
+	}
+	
+	return;
+    }
+    
+    public void enableShopItem(Player player) {
+	int nb = 0;
+
+	for( int i = 0; i <  player.getInventory().getSize(); i++) {
+	    ItemStack it = player.getInventory().getItem(i);
+
+	    if( it != null && it.getItemMeta() != null && it.getItemMeta().getDisplayName() != null && it.getItemMeta().getDisplayName().equalsIgnoreCase(_plugin._shop.getShop().getItemMeta().getDisplayName())) {
+		if( nb > 0) {
+		    try {
+			player.getInventory().clear(i);
+		    } catch (Exception var10_10) {
+			// empty catch block
+		    }
+		} else {
+		    if( it.getAmount() > 1) {
+			it.setAmount(1);
+		    }
+		    nb +=  it.getAmount();
+		}
+	    }
+	}
+
+	if( nb == 0) {
+	    player.getInventory().addItem(new ItemStack[]{_plugin._shop.getShop()});
+	}
+    }
+
+    public void disableShopItem(Player player) {
+	int nb = 0;
+
+	for( int i = 0; i <  player.getInventory().getSize(); i++) {
+	    ItemStack it = player.getInventory().getItem(i);
+
+	    if( it != null && it.getItemMeta() != null && it.getItemMeta().getDisplayName() != null && it.getItemMeta().getDisplayName().equalsIgnoreCase(_plugin._shop.getShop().getItemMeta().getDisplayName())) {
+		try {
+		    player.getInventory().clear(i);
+		} catch (Exception var10_10) {
+		    // empty catch block
+		}
+	    }
+	}
+    }
+
+    public Boolean isQuakeWorld(String name) {
+        return _plugin._QuakeWorlds.contains(name);
+    }
 }
 

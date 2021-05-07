@@ -71,7 +71,7 @@ public final class ScoreB {
 	    world = _player.getWorld().getName();
 	}
 	
-	if( isScoreWorld( world)) {
+	if( isQuakeWorld( world)) {
 	    if( _plugin._lobby.isinLobbyArea(_player.getLocation())) {
 		_player.setScoreboard(_board);
 	    } else {
@@ -83,9 +83,9 @@ public final class ScoreB {
 	
 	return;
     }
-
-    public Boolean isScoreWorld(String name) {
-        return _plugin._ScoreWorlds.contains(name);
+    
+    public Boolean isQuakeWorld(String name) {
+        return _plugin._QuakeWorlds.contains(name);
     }
 }
 

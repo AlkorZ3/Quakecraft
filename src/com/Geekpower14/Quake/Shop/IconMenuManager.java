@@ -68,20 +68,21 @@ public class IconMenuManager implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         if(!(event.getWhoClicked() instanceof Player))
             return;
-        
         Player p = (Player)event.getWhoClicked();
-        if(_menus.containsKey(p))
+        if(_menus.containsKey(p)) {
             _menus.get(p).onInventoryClick(event);
+	}
     }
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
         if(!(event.getPlayer() instanceof Player))
             return;
-        
         Player p = (Player)event.getPlayer();
-        if(_menus.containsKey(p))
+        if(_menus.containsKey(p)) {
             _menus.get(p).onInventoryClose(event);
+	    destroy(p);
+	}
     }
 }
 

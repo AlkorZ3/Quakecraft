@@ -101,11 +101,9 @@ public class IconMenu implements Listener {
     public void onInventoryClose(InventoryCloseEvent event) {
         if(!(event.getPlayer() instanceof Player))
             return;
-        
         Player p = (Player)event.getPlayer();
         if(!_openInventories.contains(p.getUniqueId()))
             return;
-
         if(_autodestroy) {
             destroy();
         }
@@ -115,8 +113,7 @@ public class IconMenu implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         if(!(event.getInventory().getHolder() instanceof Player))
             return;
-        
-        Player p = (Player)event.getWhoClicked();
+	Player p = (Player)event.getWhoClicked();
         if(p == null || !_openInventories.contains(p.getUniqueId())) {
             event.setCancelled(true);
             return;
@@ -130,7 +127,7 @@ public class IconMenu implements Listener {
             }
             Plugin plugin = _plugin;
             OptionClickEvent e = new OptionClickEvent((Player)event.getWhoClicked(), slot, _optionRegs[slot], this, event.isRightClick(), event.isLeftClick(), event.isShiftClick());
-            _handler.onOptionClick(e);
+	    _handler.onOptionClick(e);
             if (e.willClose()) {
                 Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 

@@ -58,8 +58,7 @@ extends JavaPlugin {
     public FileConfiguration _config;
     public Boolean _useVault = false;
     public Material _shopId = Material.EMERALD;
-    public List<String> _shopWorlds = new ArrayList<>();
-    public List<String> _ScoreWorlds = new ArrayList<>();
+    public List<String> _QuakeWorlds = new ArrayList<>();
     public HashMap<String, ScoreB> _scores = new HashMap();
     public Scoreboard _board;
 
@@ -71,8 +70,7 @@ extends JavaPlugin {
         _board = Bukkit.getScoreboardManager().getNewScoreboard();
         File confFile = new File(getDataFolder(), "config.yml");
         _config = YamlConfiguration.loadConfiguration(confFile);
-        _shopWorlds.add("world");
-        _ScoreWorlds.add("world");
+        _QuakeWorlds.add("world");
         if(confFile.exists())
             loadConfig();
         else
@@ -120,11 +118,8 @@ extends JavaPlugin {
         _debug = _config.getBoolean("debug", false);
         _useVault = _config.getBoolean("useVault", true);
         _shopId = Material.getMaterial(_config.getString("shop.id", "EMERALD"));
-        if(_config.contains("shop.world")) {
-            _shopWorlds = _config.getStringList("shop.world");
-        }
-        if(_config.contains("ScoreBoard.world")) {
-            _ScoreWorlds = _config.getStringList("ScoreBoard.world");
+        if(_config.contains("QuakeWorld")) {
+            _QuakeWorlds = _config.getStringList("QuakeWorld");
         }
     }
 
@@ -133,10 +128,8 @@ extends JavaPlugin {
         _config.set("debug", _debug);
         _config.set("useVault", _useVault);
         _config.set("shop.id", _shopId.name());
-        if(!_shopWorlds.isEmpty())
-            _config.set("shop.world", _shopWorlds);
-        if(!_ScoreWorlds.isEmpty())
-            _config.set("ScoreBoard.world", _ScoreWorlds);
+	if(!_QuakeWorlds.isEmpty()) 
+            _config.set("QuakeWorld", _QuakeWorlds);
         try {
             _config.save(new File(getDataFolder(), "config.yml"));
         } catch (IOException e) {
