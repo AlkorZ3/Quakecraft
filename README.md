@@ -41,14 +41,14 @@ This Quake Version is for Minecraft Spigot 1.16.5.
 ####################################################
 
 ## How to install ( Depended WorldEdit / Softdepended Vault ):
-* Download the plugin.
-* Stop the Server.
+* Download the plugin;
+* Stop the Server;
 * Place it in the plugin folder (plugins/).
-* Restart/Reload the server again (for create new files).
-* change config file.
-* Restart the server again.
-* Create new world with your arena (You need a Multi-World plugin like Multiverse) (optionally).
-* Enjoy.
+* Restart/Reload the server again (for create new files);
+* Change config files;
+* Restart the server again;
+* Create new world with your arena (You need a Multi-World plugin like Multiverse) (optionally);
+* Enjoy!
 
 ## How to use: ( ignore the [] , it's mark placeholder )
 **Create an Arena**
@@ -57,15 +57,15 @@ This Quake Version is for Minecraft Spigot 1.16.5.
 * Do /quake setmax [Arena name] [number] - to set the maximum number of player can join the game.
 * Do /quake setmap [Arena name] [Name of map] - to set the name of the map will display on the lobby (Unknown will be display if nothing is set).
 * Do /quake addspawn [Arena name] [Read | Blue (Only for team arena)] - in the Arena, to add a randoms spawn of the Arena. (Do this many time of you want !)
-* Do /quake save [Arena name] - to save the config of the Arena. Enjoy !
+* Do /quake save [Arena name] - to save the config of the Arena. Enjoy!
 
-* Do /quake setlobbyspawn - to add a spawn at the end of the game (more than one can be defined).
-* Define a lobby wall with WorldEdit :  A Wall of Signs
-* Do /quake addlobbywall - to define the WorldEdit region as a Lobby wall (more than one can be defined).
 * Define a lobby area with WorldEdit.
 * Do /quake addlobbyarea - to define the WorldEdit region as a Lobby area (more than one can be defined).
+* Define a lobby wall with WorldEdit :  A Wall of Signs
+* Do /quake addlobbywall - to define the WorldEdit region as a Lobby wall (more than one can be defined).
+* Do /quake setlobbyspawn - to add a spawn at the end of the game (more than one can be defined).
 
 **New Lobby System
-Warning, the release 3.5.0 break the "lobby.yml" file format. You will have to redefine the lobby wall...
+Warning, the release 3.5.0 break the "lobby.yml" file format: you will have to redefine the lobby wall...
 
 [Read this Page](https://github.com/Bl4ckSkull666/Quake---The-Gun-Game/wiki/Lobby-system)
