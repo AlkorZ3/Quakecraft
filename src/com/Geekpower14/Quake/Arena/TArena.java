@@ -178,6 +178,10 @@ public class TArena extends Arena {
             player.sendMessage(_plugin._trad.get("Game.Arena.error.inGame"));
             return;
         }
+        if (!Quake.hasPermission(player, "Quake.player")) {
+            player.sendMessage(_plugin._trad.get("NoPermission"));
+            return;
+        }
         if (_VIP && !Quake.hasPermission(player, "Quake.VIP")) {
             player.sendMessage(_plugin._trad.get("Game.Arena.error.VIP"));
             return;
