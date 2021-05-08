@@ -63,12 +63,12 @@ public class StuffManager {
             nhat.set("Price", 50);
             nhat.set("Name", "JackOHat");
             nhat.set("Material", Material.JACK_O_LANTERN.toString());
-            nhat.set("Description", (String.valueOf(ChatColor.BOLD.toString()) + "It's cool !"));
+            nhat.set("Description", (String.valueOf(ChatColor.BOLD.toString()) + "It's cool!"));
             try {
                 nhat.save(new File(_plugin.getDataFolder(), "/Stuff/Hats/JackOHat.yml"));
             }
             catch (IOException e) {
-                _plugin.getLogger().warning("save JackOHat impossible !");
+                _plugin.getLogger().warning("save JackOHat impossible!");
             }
             YamlConfiguration nhatt = YamlConfiguration.loadConfiguration((File)new File(""));
             nhatt.set("Implementation", "HatCustomFile");
@@ -80,7 +80,7 @@ public class StuffManager {
                 nhatt.save(new File(_plugin.getDataFolder(), "/Stuff/Hats/Geekpower14.yml"));
             }
             catch (IOException e) {
-                _plugin.getLogger().warning("save JackOHat impossible !");
+                _plugin.getLogger().warning("save Geekpower14 impossible!");
             }
             f.mkdirs();
         }
@@ -90,7 +90,6 @@ public class StuffManager {
         while (e < n) {
             YamlConfiguration config;
             File file = arrfile[e];
-            _plugin.getLogger().warning(file.getPath());
             if (file.isFile() && file.getPath().endsWith(".yml") && (config = YamlConfiguration.loadConfiguration((File)file)).contains("Implementation")) {
                 _plugin.getLogger().info(String.valueOf(file.getPath()) + " found implementation");
                 HatBasic hat = HatFactory.getInstance(config.getString("Implementation"), file.getPath());
@@ -136,7 +135,6 @@ public class StuffManager {
         while (meta < l) {
             YamlConfiguration config;
             File file = e[meta];
-            _plugin.getLogger().warning(file.getPath());
             if (file.isFile() && file.getPath().endsWith(".yml") && (config = YamlConfiguration.loadConfiguration((File)file)).contains("Implementation")) {
                 _plugin.getLogger().info(file.getPath() + " found implementation");
                 ArmorBasic armor = ArmorFactory.getInstance(config.getString("Implementation"), file.getPath());
